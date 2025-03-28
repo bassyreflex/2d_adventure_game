@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
     /*
     public void run() {
 
-        double drawInterval = 1000000000/FPS; //(one second in nanoseconds divided by the fps - 0.016666 seconds
+        double drawInterval = 1000000000/FPS; //one second in nanoseconds divided by the fps - 0.016666 seconds
         double nextDrawTime = System.nanoTime() + drawInterval;
         while(gameThread != null){
             //System.out.println("The loop is looping");
