@@ -23,7 +23,8 @@ public class Main {
         //make visible 
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+        gamePanel.setupGame(); //place objects before game
+        gamePanel.startGameThread();  //start game loop
 
     }
 } 
