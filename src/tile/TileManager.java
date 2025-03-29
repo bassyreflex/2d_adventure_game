@@ -15,7 +15,7 @@ public class TileManager {
     GamePanel gp;
     Tile[] tile;
 
-    int mapTileNum[][];
+    int[][] mapTileNum;
 
     public TileManager(GamePanel gp){
 
@@ -56,6 +56,7 @@ public class TileManager {
     public void loadMap(String filePath){
         try{
             InputStream is = getClass().getResourceAsStream(filePath);
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -66,7 +67,7 @@ public class TileManager {
                 String line = br.readLine(); //reads a single line of the map text
 
                 while(col<gp.maxWorldCol){
-                    String numbers[] = line.split(" "); //splits the line into different array elements using a space (0 1 0 2) becomes numbers[0]=0, numbers[1]=1, numbers[2]=0, numbers[3]=2.
+                    String[] numbers = line.split(" "); //splits the line into different array elements using a space (0 1 0 2) becomes numbers[0]=0, numbers[1]=1, numbers[2]=0, numbers[3]=2.
 
                     int num= Integer.parseInt(numbers[col]); //changes numbers from string to number
 
