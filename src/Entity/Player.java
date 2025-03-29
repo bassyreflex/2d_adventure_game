@@ -25,6 +25,8 @@ public class Player extends Entity{
         screenx = gp.screenWidth/2 - (gp.tileSize/2);
         screeny = gp.screenHeight/2 - (gp.tileSize/2);
 
+        solidArea = new Rectangle(8,16,32,32);
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -57,19 +59,36 @@ public class Player extends Entity{
         if(keyH.upPressed|| keyH.downPressed|| keyH.leftPressed|| keyH.rightPressed){
             if(keyH.upPressed){
                 direction = "up";
-                worldy-= speed; // upper left corner is origin, so subtracting y moves the player up
             }
             else if(keyH.leftPressed){
                 direction = "left";
-                worldx-= speed;
             }
             else if(keyH.downPressed){
                 direction = "down";
-                worldy+= speed;
             }
             else if(keyH.rightPressed){
                 direction = "right";
-                worldx+= speed;
+            }
+            //check tile collision
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            //if collision is false, player can move
+            if(!collisionOn){
+                switch (direction){
+                    case "up":
+                        worldy-= speed; // upper left corner is origin, so subtracting y moves the player up
+                        break;
+                    case "down":
+                        worldy+= speed;
+                        break;
+                    case "right":
+                        worldx+= speed;
+                        break;
+                    case "left":
+                        worldx-= speed;
+                        break;
+                }
             }
 
             spriteCounter++;
