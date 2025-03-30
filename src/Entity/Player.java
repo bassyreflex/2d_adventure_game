@@ -17,7 +17,7 @@ public class Player extends Entity{
     public final int screenx;
     public final int screeny;
 
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public int walkAnimSpeed = 12;
 
@@ -127,20 +127,29 @@ public class Player extends Entity{
                     gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
-                    System.out.println("You got a key! Total: " + hasKey);
+                    gp.ui.showMessage("You found a key!");
+                    //System.out.println("You got a key! Total: " + hasKey);
                     break;
                 case "Door":
                     if(hasKey>0){
+                        gp.ui.showMessage("You unlocked a door!");
                         gp.playSE(3);
                         hasKey--;
                         gp.obj[i] = null;
-                        System.out.println("You opened a door! Total keys: " + hasKey);
+                        //System.out.println("You opened a door! Total keys: " + hasKey);
+                    }
+                    else{
+                        gp.ui.showMessage("You need a key!");
                     }
                     break;
                 case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
                     break;
                 case "Boots":
                     gp.playSE(2);
+                    gp.ui.showMessage("Speed up!");
                     speed += 2;
                     walkAnimSpeed = 8;
                     gp.obj[i] = null;

@@ -27,13 +27,17 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     //fps
-    int FPS = 30;
+    public int FPS = 60;
     int[] averageFPS = new int[100];
 
  //system
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Sound sound = new Sound();
+    Sound SE = new Sound();
+    Sound music = new Sound();
+
+    public UI ui = new UI(this);
+
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -124,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
                 //System.out.println("FPS: "+ drawCount);
                 averageFPS[fpsCounter] = drawCount;
                 fpsCounter++;
-                if(fpsCounter>100){
+                if(fpsCounter>99){
                     fpsCounter = 0;
                 }
                 drawCount = 0;
@@ -147,7 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
         average = (float) total /dataPointCounter;
-        System.out.println("Average FPS from "+dataPointCounter+" data points: "+average);
+        System.out.println("Average FPS from "+dataPointCounter+" data points: "+average+"fps");
         //System.out.println(Arrays.toString(averageFPS));
     }
     public void update(){
@@ -171,18 +175,22 @@ public class GamePanel extends JPanel implements Runnable {
         //player drawing
         player.draw(g2);
 
+        //UI
+
+        ui.draw(g2);
+
         g2.dispose(); // dispose of graphics content and release used system resources
     }
     public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
+        SE.setFile(i);
+        SE.play();
     }
 } 
