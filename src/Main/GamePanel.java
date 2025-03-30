@@ -6,6 +6,7 @@ import tile.TileManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.Arrays;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -26,7 +27,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     //fps
-    int FPS = 60;
+    int FPS = 30;
+    int[] averageFPS = new int[100];
 
  //system
     TileManager tileM = new TileManager(this);
@@ -102,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         long timer = 0;
         int drawCount = 0;
+        int fpsCounter = 0;
 
         while(gameThread!=null){
 
@@ -119,11 +122,33 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(timer >= 1000000000){
                 //System.out.println("FPS: "+ drawCount);
+                averageFPS[fpsCounter] = drawCount;
+                fpsCounter++;
+                if(fpsCounter>100){
+                    fpsCounter = 0;
+                }
                 drawCount = 0;
                 timer = 0;
             }
 
         }
+    }
+    public void calculateAverageFPS(){
+        int total = 0;
+        int dataPointCounter = 0;
+        float average;
+        for (int i = 0; i < averageFPS.length; i++) {
+
+            if(averageFPS[i]>1){
+                total+=averageFPS[i];
+                dataPointCounter++;
+
+            }
+
+        }
+        average = (float) total /dataPointCounter;
+        System.out.println("Average FPS from "+dataPointCounter+" data points: "+average);
+        //System.out.println(Arrays.toString(averageFPS));
     }
     public void update(){
         player.update();

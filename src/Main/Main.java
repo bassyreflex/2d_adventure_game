@@ -26,5 +26,12 @@ public class Main {
         gamePanel.setupGame(); //place objects before game
         gamePanel.startGameThread();  //start game loop
 
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                System.out.println("Closing Game.....");
+                gamePanel.calculateAverageFPS();
+            }
+        }, "Shutdown-thread"));
+
     }
 } 
