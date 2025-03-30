@@ -19,10 +19,14 @@ public class Player extends Entity{
 
     int hasKey = 0;
 
+    public int walkAnimSpeed = 12;
+
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+
+
 
         screenx = gp.screenWidth/2 - (gp.tileSize/2);
         screeny = gp.screenHeight/2 - (gp.tileSize/2);
@@ -101,7 +105,7 @@ public class Player extends Entity{
             }
 
             spriteCounter++;
-            if(spriteCounter>12){
+            if(spriteCounter>walkAnimSpeed){
                 if(spriteNum==1){
                     spriteNum=2;
                 }
@@ -120,18 +124,26 @@ public class Player extends Entity{
 
             switch(objectName){
                 case "Key":
+                    gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
                     System.out.println("You got a key! Total: " + hasKey);
                     break;
                 case "Door":
                     if(hasKey>0){
+                        gp.playSE(3);
                         hasKey--;
                         gp.obj[i] = null;
                         System.out.println("You opened a door! Total keys: " + hasKey);
                     }
                     break;
                 case "Chest":
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;
+                    walkAnimSpeed = 8;
+                    gp.obj[i] = null;
                     break;
 
             }
