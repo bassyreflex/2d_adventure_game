@@ -31,7 +31,7 @@ public class Player extends Entity{
         screenx = gp.screenWidth/2 - (gp.tileSize/2);
         screeny = gp.screenHeight/2 - (gp.tileSize/2);
 
-        solidArea = new Rectangle(8,16,32,32);
+        solidArea = new Rectangle(14,25,20,20);
         solidAreaDefaultx = solidArea.x;
         solidAreaDefaulty = solidArea.y;
 
@@ -200,5 +200,8 @@ public class Player extends Entity{
         }
         g2.drawImage(image, screenx, screeny, gp.tileSize, gp.tileSize, null);
 
+        //show player hitbox
+        g2.setColor(Color.red);
+        g2.drawRect(screenx+solidArea.x,screeny+solidArea.y,solidArea.width,solidArea.height);
     }
 }
