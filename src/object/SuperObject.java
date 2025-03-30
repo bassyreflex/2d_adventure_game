@@ -12,6 +12,10 @@ public class SuperObject {
     public boolean collision = false;
     public int worldx, worldy;
 
+    public Rectangle solidArea = new Rectangle(0,0,48,48);
+    public int solidAreaDefaultx = 0;
+    public int solidAreaDefaulty = 0;
+
     public void draw(Graphics2D g2, GamePanel gp){
 
         int screenx = worldx - gp.player.worldx + gp.player.screenx;
