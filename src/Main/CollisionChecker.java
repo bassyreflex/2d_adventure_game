@@ -128,10 +128,102 @@ public class CollisionChecker {
 
         return index;
     }
-/*
-    public int checkEntity(Entity entity, Entity[] target){
 
+    public int checkEntity(Entity entity, Entity[] target) {
+
+        int index = 9999;
+
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) {
+                //get entity's solid area position
+                entity.solidArea.x = entity.worldx + entity.solidArea.x;
+                entity.solidArea.y = entity.worldy + entity.solidArea.y;
+                //get object solid area position
+                target[i].solidArea.x = target[i].worldx + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldy + target[i].solidArea.y;
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultx;
+                entity.solidArea.y = entity.solidAreaDefaulty;
+
+                target[i].solidArea.x = target[i].solidAreaDefaultx;
+                target[i].solidArea.y = target[i].solidAreaDefaulty;
+
+
+            }
+
+        }
+        return index;
     }
 
- */
+    public void checkPlayer(Entity entity){
+
+        //get entity's solid area position
+        entity.solidArea.x = entity.worldx + entity.solidArea.x;
+        entity.solidArea.y = entity.worldy + entity.solidArea.y;
+        //get object solid area position
+        gp.player.solidArea.x = gp.player.worldx + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldy + gp.player.solidArea.y;
+
+        switch (entity.direction) {
+            case "up":
+                entity.solidArea.y -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "down":
+                entity.solidArea.y += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "left":
+                entity.solidArea.x -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "right":
+                entity.solidArea.x += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+        }
+        entity.solidArea.x = entity.solidAreaDefaultx;
+        entity.solidArea.y = entity.solidAreaDefaulty;
+
+        gp.player.solidArea.x = gp.player.solidAreaDefaultx;
+        gp.player.solidArea.y = gp.player.solidAreaDefaulty;
+    }
 }
