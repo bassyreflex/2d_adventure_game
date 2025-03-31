@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
 
 public class Entity {
 
@@ -26,6 +27,9 @@ public class Entity {
     public boolean collisionOn = false;
 
     public int actionLockCounter = 0;
+    Random random = new Random();
+    public boolean walking = true;
+    int walkingCounter = 0;
 
     public Entity(GamePanel gp){
         this.gp=gp;
@@ -46,40 +50,49 @@ public class Entity {
 
     public void setAction(){}
 
-    public void update(){
+    public void update() {
 
         setAction();
+        walkingCounter++;
 
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this,false);
-        gp.cChecker.checkPlayer(this);
-
-        if(!collisionOn){
-            switch (direction){
-                case "up":
-                    worldy-= speed; // upper left corner is origin, so subtracting y moves the player up
-                    break;
-                case "down":
-                    worldy+= speed;
-                    break;
-                case "right":
-                    worldx+= speed;
-                    break;
-                case "left":
-                    worldx-= speed;
-                    break;
-            }
+        if (walkingCounter > 150) {
+            walking = random.nextBoolean();
+            walkingCounter = 0;
         }
-        spriteCounter++;
-        if(spriteCounter>12){
-            if(spriteNum==1){
-                spriteNum=2;
+        if (walking) {
+
+
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            gp.cChecker.checkObject(this, false);
+            gp.cChecker.checkPlayer(this);
+
+
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldy -= speed; // upper left corner is origin, so subtracting y moves the player up
+                        break;
+                    case "down":
+                        worldy += speed;
+                        break;
+                    case "right":
+                        worldx += speed;
+                        break;
+                    case "left":
+                        worldx -= speed;
+                        break;
+                }
             }
-            else if(spriteNum==2){
-                spriteNum=1;
+            spriteCounter++;
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
             }
-            spriteCounter=0;
         }
     }
 
