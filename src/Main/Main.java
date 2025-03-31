@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
+
         // create game window 
         JFrame window = new JFrame();
         // make window closeable with x button 

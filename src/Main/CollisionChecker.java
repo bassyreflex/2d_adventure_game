@@ -128,4 +128,10 @@ public class CollisionChecker {
 
         return index;
     }
+/*
+    public int checkEntity(Entity entity, Entity[] target){
+
+    }
+
+ */
 }
