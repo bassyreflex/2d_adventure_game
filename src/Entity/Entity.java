@@ -31,6 +31,10 @@ public class Entity {
     public boolean walking = true;
     int walkingCounter = 0;
 
+
+    String[] dialogues = new String[20];
+    int dialogueindex = 0;
+
     public Entity(GamePanel gp){
         this.gp=gp;
     }
@@ -143,6 +147,28 @@ public class Entity {
                     break;
             }
             g2.drawImage(image, screenx, screeny, gp.tileSize, gp.tileSize, null);
+        }
+    }
+    public void speak(){
+        if(dialogues[dialogueindex]==null){
+            dialogueindex=0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueindex];
+        dialogueindex++;
+
+        switch (gp.player.direction){
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "right":
+                direction = "left";
+                break;
+            case "left":
+                direction = "right";
+                break;
         }
     }
 
