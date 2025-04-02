@@ -36,6 +36,15 @@ public class NPC_OldMan extends Entity{
         dialogues[1] = "So you've come to this island to\n find the treasure?";
         dialogues[2] = "I used to be a great wizard, but now......\n I'm a bit too old for taking an adventure";
         dialogues[3] = "Well, good luck on you";
+        dialogues[4] = "I say: be gone!";
+        dialogues[5] = "Salutations!";
+        dialogues[6] = "Have you nothing better to do??";
+        dialogues[7] = "Let me wander in PEACE!";
+        dialogues[8] = "You don't want to do this...";
+        dialogues[9] = "Last warning.............";
+        dialogues[10] = "Fine, you leave me with no choice.";
+
+
     }
 
     public void setAction(){
