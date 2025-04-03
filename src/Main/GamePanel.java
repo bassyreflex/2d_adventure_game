@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
+    public final int titleState = 0;
 
 
 
@@ -71,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         playMusic(0);
         stopMusic();
-        gameState = playState;
+        gameState = titleState;
     }
 
     public void startGameThread(){
@@ -80,37 +81,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override
-    // ALTERNATE GAMELOOP
-    /*
-    public void run() {
-
-        double drawInterval = 1000000000/FPS; //one second in nanoseconds divided by the fps - 0.016666 seconds
-        double nextDrawTime = System.nanoTime() + drawInterval;
-        while(gameThread != null){
-            //System.out.println("The loop is looping");
-
-            //update player info
-            update();
-            //draw screen
-            repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                if(remainingTime < 0) {
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
-     */
     public void run(){
         double drawInterval = (double) 1000000000 /FPS;
         double delta = 0;
@@ -187,33 +157,42 @@ public class GamePanel extends JPanel implements Runnable {
 
         //debug
         long drawStart = 0;
-        if(keyH.checkDrawTime==true){
+        if(keyH.checkDrawTime){
             drawStart = System.nanoTime();
         }
 
+        //title screen
+        if(gameState==titleState){
+            ui.draw(g2);
+        }
+        else{
 
-        //tile drawing
-        tileM.draw(g2);
+            //tile drawing
+            tileM.draw(g2);
 
-        //object drawing
-        for(int i=0;i<obj.length;i++){
-            if(obj[i]!=null){
-                obj[i].draw(g2,this);
+            //object drawing
+            for(int i=0;i<obj.length;i++){
+                if(obj[i]!=null){
+                    obj[i].draw(g2,this);
+                }
             }
+
+            //npc drawing
+            for(int i=0;i<npc.length;i++){
+                if(npc[i]!=null){
+                    npc[i].draw(g2);
+                }
+            }
+
+            //player drawing
+            player.draw(g2);
+
+            //UI
+            ui.draw(g2);
         }
 
-        //npc drawing
-        for(int i=0;i<npc.length;i++){
-            if(npc[i]!=null){
-                npc[i].draw(g2);
-            }
-        }
 
-        //player drawing
-        player.draw(g2);
 
-        //UI
-        ui.draw(g2);
 
         //debug
         if(keyH.checkDrawTime){
